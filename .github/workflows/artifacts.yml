@@ -1,0 +1,21 @@
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [amd64, arm64]
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+
+      - run: GOARCH=${{ matrix.architecture }} go build -o lancache-dns-generator-${{ matrix.architecture }} -ldflags "-s -w" .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lancache-dns-generator-${{ matrix.architecture }}
+          path: lancache-dns-generator-${{ matrix.architecture }}

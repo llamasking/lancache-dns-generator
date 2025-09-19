@@ -1,4 +1,4 @@
-FROM docker.io/golang:alpine as builder
+FROM docker.io/golang:alpine AS builder
 WORKDIR /app
 
 # copy go.mod and go.sum separately to avoid unnecessarily redownloading dependencies
